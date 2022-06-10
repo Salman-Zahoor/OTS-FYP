@@ -19,9 +19,6 @@ var options = {
 };
 
 
-
-
-
  // image uploader function
  const uploadImage =() =>{
   console.log("launching ----");
@@ -41,44 +38,43 @@ var options = {
 
 
 
-// const uploadImageToCloudinary=async (file) =>{
-//   console.log("uploading------");
-//   file=base64
-//   const data = new FormData()
-//   data.append('file',file)
-//   data.append("upload_preset","lc31yhqm")
-//   data.append("cloud_name","ddg5474bs")
-//   try {
-//       const res = await axios("https://api.cloudinary.com/v1_1/ddg5474bs/image/upload",data)
-//       console.log(res.data.secure_url,"RESSSSSSSSSSSSSSpppppp");
-//       setImage(res.data.secure_url)
-//       console.log(res.data);
-//   } catch (error) {
-//       console.log(error,"ERRRRORRRR");
-//   }
-// }
-
-
-const uploadImageToCloudinary=async (e) =>{
-  console.log(e, "EEEEEE");
-  let apiUrl = 'https://api.cloudinary.com/v1_1/doarv4eiv/image/upload';
-
-  let data = {
-      "file": e,
-      "upload_preset": "pvkc4z55",
+const uploadImageToCloudinary=async (file) =>{
+  console.log("uploading------");
+  const data = new FormData()
+  data.append('file',file)
+  data.append("upload_preset","pvkc4z55")
+  data.append("cloud_name","doarv4eiv")
+  try {
+      const res = await axios("https://api.cloudinary.com/v1_1/doarv4eiv/image/upload",data)
+      console.log(res.data.secure_url,"RESSSSSSSSSSSSSSpppppp");
+      setImage(res.data.secure_url)
+      console.log(res.data);
+  } catch (error) {
+      console.log(error,"ERRRRORRRR");
   }
-  fetch(apiUrl, {
-    body: base64.stringify(data),
-    headers: {
-        'content-type': 'application/json'
-    },
-    method: 'POST',
-})
- .then(async res => {
-  let data = await res.json()
-  console.log(data,"res")
-  }).catch(err => console.log(err.messege,"errr"))
 }
+
+
+// const uploadImageToCloudinary=async (e) =>{
+//   console.log(e, "EEEEEE");
+//   let apiUrl = 'https://api.cloudinary.com/v1_1/doarv4eiv/image/upload';
+
+//   let data = {
+//       "file": e,
+//       "upload_preset": "pvkc4z55",
+//   }
+//   fetch(apiUrl, {
+//     body: (data),
+//     headers: {
+//         'content-type': 'application/json'
+//     },
+//     method: 'POST',
+// })
+//  .then(async res => {
+//   let data = await res.json()
+//   console.log(data,"res")
+//   }).catch(err => console.log(err.messege,"errr"))
+// }
 
 
 

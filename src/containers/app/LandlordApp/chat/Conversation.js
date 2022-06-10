@@ -21,7 +21,7 @@ const Conversation = ({ navigation }) => {
     const [allUsers, setallUsers] = useState([])
     const [laoder, setLoader] = useState(true)
     const[activeUser,setActiveUser]=useState({})
-
+    const [myUsers,setMyUsers]=useState([])
 
     useEffect(()=>{
         getUserDetails()
@@ -49,36 +49,37 @@ const Conversation = ({ navigation }) => {
                     name: '',
                     // image: ''
                 }
-                datasnapShot.forEach((child) => {
-                    console.log(child, "childchildchild");
-                    if (activeUser.refferenceCode===child.val().RefferenceCode) {
-                        console.log('if')
-                        // currentUser.id = child.val().uuid;
-                        // currentUser.name = child.val().name;
-                        // currentUser.image = child.val().image
-                        users.push({
-                            id: child.val().uuid,
-                            name: child.val().name,
-                            // image:child.val().image
-                        })
-                    }
-                    else {
-                        console.log('else')
-                        return(
-                        <View><Text>No Tanents available</Text>
-                        </View>
-                        )
-                        // users.push({
-                        //     id: child.val().uuid,
-                        //     name: child.val().name,
-                        //     // image:child.val().image
-                        // })
+               
+                let data=datasnapShot.val()?datasnapShot.val():{}
+                setMyUsers(data)
+                    dataMap();
+                    // // console.log(child, "childchildchild");
+                    // if (activeUser.refferenceCode) {
+                    //     console.log('if')
+                    //     // currentUser.id = child.val().uuid;
+                    //     // currentUser.name = child.val().name;
+                    //     // currentUser.image = child.val().image
+                    //     users.push({
+                    //         id: child.val().uuid,
+                    //         name: child.val().name,
+                    //         // image:child.val().image
+                    //     })
+                    // }
+                    // else {
+                    //     console.log('else')
+                    //     return(
+                    //     <View><Text>No Tanents available</Text>
+                    //     </View>
+                    //     )
+                    //     // users.push({
+                    //     //     id: child.val().uuid,
+                    //     //     name: child.val().name,
+                    //     //     // image:child.val().image
+                    //     // })
 
-                    }
-                })
-                setLoader(false)
-                setuserDetails(currentUser)
-                setallUsers(users)
+                    // }
+              
+                
             })
         } catch (error) {
             console.log(error);
@@ -97,6 +98,31 @@ const Conversation = ({ navigation }) => {
 
     console.log(allUsers, "USSSSSSSSSSSSS");
 
+    let asliUser=firebase.auth().currentUser.uid
+    let newKey=Object.keys(myUsers)
+    const dataMap=()=>{
+        let users = [];
+                let currentUser = {
+                    id: '',
+                    name: '',
+                    // image: ''
+                }
+        newKey.map(val=>{
+            if (activeUser.refferenceCode==myUsers[val].RefferenceCode ) {
+                return(
+                    
+                    users.push({
+                        id: myUsers[val].uuid,
+                        name:myUsers[val].name,
+                        // image:child.val().image
+                    })
+                )
+            }
+        })
+        setLoader(false)
+                setuserDetails(currentUser)
+                setallUsers(users)
+    }
     return (
         
         <SafeAreaView style={{ backgroundColor: 'black', flex: 1 }}>
